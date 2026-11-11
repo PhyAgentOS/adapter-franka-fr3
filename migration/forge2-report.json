@@ -1,7 +1,6 @@
 {
   "repository": "adapter-franka-fr3",
   "node_candidate_version": "2.0.0",
-  "baseline_commit": "d40ab1aa3ed7cf2d6cba5cf5cc643f5e95b0d4d9",
   "changes": [
     "Upgrade Forge runner/custom loop dependencies; retain existing motion behavior.",
     "Derive version tests and CI expectations from package metadata rather than stale 0.1.1 literals.",
