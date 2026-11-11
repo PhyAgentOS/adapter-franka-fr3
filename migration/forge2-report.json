@@ -1,0 +1,104 @@
+{
+  "repository": "adapter-franka-fr3",
+  "node_candidate_version": "2.0.0",
+  "baseline_commit": "d40ab1aa3ed7cf2d6cba5cf5cc643f5e95b0d4d9",
+  "changes": [
+    "Upgrade Forge runner/custom loop dependencies; retain existing motion behavior.",
+    "Derive version tests and CI expectations from package metadata rather than stale 0.1.1 literals.",
+    "Synchronize English/Chinese root README guidance and frozen dependencies."
+  ],
+  "software_tests": {
+    "log": "tests.log",
+    "summary": [
+      "1 failed, 91 passed, 8 subtests passed in 4.16s"
+    ]
+  },
+  "dora_cli": "1.0.1",
+  "runtime_records": [
+    {
+      "repo": "adapter-franka-fr3",
+      "entry": "franka-fake",
+      "mode": "single",
+      "command": [
+        "${WORKSPACE}/.test-env/bin/dora",
+        "run",
+        "${WORKSPACE}/validation/forge2/runtime/franka-fake/single/dataflow.yaml",
+        "--stop-after",
+        "6s"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 6.082,
+      "passed": true,
+      "error": null,
+      "scope": "Startup, timer processing and normal Dora stop only; no hardware or action execution."
+    },
+    {
+      "repo": "adapter-franka-fr3",
+      "entry": "franka-fake",
+      "command": [
+        "${WORKSPACE}/.test-env/bin/dora",
+        "run",
+        "${WORKSPACE}/validation/forge2/runtime/franka-fake/chain/dataflow.yaml",
+        "--stop-after",
+        "10s"
+      ],
+      "includes_gateway": true,
+      "passed": true,
+      "scope": "Production node with simulated state/actuator; Gateway receives state and commands. No hardware.",
+      "state": {
+        "running_time": 0.684,
+        "current_frame_count": 6,
+        "sensors": {
+          "joints": {
+            "fr3v2_joint1": 0.0,
+            "fr3v2_joint2": -0.7853981633974483,
+            "fr3v2_joint3": 0.0,
+            "fr3v2_joint4": -2.356194490192345,
+            "fr3v2_joint5": 0.0,
+            "fr3v2_joint6": 1.5707963267948966,
+            "fr3v2_joint7": 0.7853981633974483,
+            "gripper": 0.08
+          },
+          "command": {}
+        },
+        "runtime": {
+          "phase": "running",
+          "sim_status": {
+            "status_name": "UNINITIALIZED",
+            "status_code": 0
+          },
+          "record_status": {
+            "record_state": "IDLE",
+            "episode_count": 0,
+            "current_frame_count": 0
+          },
+          "playback_status": {
+            "playback_state": "IDLE",
+            "current_time_ns": 0,
+            "total_messages": 0,
+            "mcap_path": null,
+            "error": null
+          },
+          "readiness": {
+            "ready": true,
+            "missing": [],
+            "runtime_phase": "running",
+            "proprio_state_ready": true,
+            "required_images_ready": true,
+            "images": {},
+            "state_clients": 1,
+            "image_clients": 0,
+            "state_client_ready": true,
+            "image_client_ready": false
+          },
+          "last_error": null
+        }
+      },
+      "exit_code": 0
+    }
+  ],
+  "runtime_missing": "One existing downstream Skill config-bound assertion fails (expected ±0.05, checked-in config ±0.1); native Franky/hardware acceptance is pending. No Skill configuration was changed.",
+  "acceptance": "Pending final platform artifacts, applicable hardware/model execution and rollback/sustained-run gates.",
+  "pillow_dependency": "Node locks currently resolve published Forge Msgs 2.0.0. Security audit remains dependent on Forge PR #3 and a published security-fixed Msgs release; no vulnerability suppression was added.",
+  "gitlab_synchronization": "Not started; follows full acceptance."
+}

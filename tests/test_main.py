@@ -7,6 +7,7 @@ import unittest
 from unittest.mock import patch
 
 from typer.testing import CliRunner
+from robots_franka_fr3 import __version__
 
 from robots_franka_fr3.backend import FakeBackend
 from robots_franka_fr3.contract import ACTUATOR_ORDER
@@ -38,7 +39,7 @@ class TyperWiringTest(unittest.TestCase):
     def test_version_flag(self) -> None:
         result = runner.invoke(app, ["--version"])
         self.assertEqual(result.exit_code, 0)
-        self.assertIn("robots_franka_fr3 0.1.1", result.output)
+        self.assertIn(f"robots_franka_fr3 {__version__}", result.output)
 
     def test_read_state_end_to_end_via_typer(self) -> None:
         result = runner.invoke(app, ["read-state", "--samples", "1", "--period", "0"])
