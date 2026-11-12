@@ -95,8 +95,7 @@
       "forge-msgs": "2.1.0",
       "pillow": "13.0.0",
       "dora-rs": "1.0.1"
-    },
-    "log": "msgs-2.1.0-logs/tests.log"
+    }
   },
   "dependency_audit": {
     "repo": "adapter-franka-fr3",
@@ -176,7 +175,7 @@
       "mode": "chain",
       "source_report": "runtime/franka-fake/chain/report.json",
       "runtime_errors": [],
-      "log": "msgs-2.1.0-logs/runtime/franka-fake/chain/dora.log"
+      "local_evidence": "Full original Dora log is retained under validation/downstream-msgs210-20261112/runtime/franka-fake/chain/dora.log"
     },
     {
       "repo": "adapter-franka-fr3",
@@ -196,10 +195,11 @@
       "scope": "Startup, timer processing and normal Dora stop only; no hardware or action execution.",
       "source_report": "runtime/franka-fake/single/report.json",
       "runtime_errors": [],
-      "log": "msgs-2.1.0-logs/runtime/franka-fake/single/dora.log"
+      "local_evidence": "Full original Dora log is retained under validation/downstream-msgs210-20261112/runtime/franka-fake/single/dora.log"
     }
   ],
   "remaining": "Known preexisting Skill bounds test failure: expected +/-0.05, checked-in config +/-0.1; Franky SDK absent locally. Motion limits unchanged.",
   "acceptance": "Pending; software checks, fake/dummy backends and negative prerequisite records are scoped evidence only. Every new multi-node graph contains adapter-forge-gateway.",
-  "gitlab_sync": "Not performed; follows completed acceptance."
+  "gitlab_sync": "Not performed; follows completed acceptance.",
+  "log_publication": "Original logs remain in the local validation workspace. This public report publishes reviewed commands, outcomes, assertions and limitations only."
 }
