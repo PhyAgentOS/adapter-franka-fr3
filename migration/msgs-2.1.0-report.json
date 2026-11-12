@@ -1,0 +1,205 @@
+{
+  "repository": "adapter-franka-fr3",
+  "round": "msgs-2.1.0 alignment / 2026-11-12",
+  "breaking_change": "Forge 1.x / Dora 0.4.x to Forge 2.x / Dora 1.x requires aligned Forge packages, runtime services, node peers and rebuilt artifacts. Forge families version independently. forge_msgs.v1 remains unchanged.",
+  "changes": [
+    "Update paired README deployment/version compatibility notice",
+    "Require Python forge-msgs >=2.1.0,<3 and lock public Msgs 2.1.0 / Pillow 13.0.0, preserving all other locked package versions"
+  ],
+  "lock_updates": [
+    {
+      "repo": "adapter-franka-fr3",
+      "lock": "uv.lock",
+      "command": [
+        "${WORKSPACE}/.tools/bin/uv",
+        "lock",
+        "--upgrade-package",
+        "forge-msgs==2.1.0",
+        "--upgrade-package",
+        "pillow==13.0.0"
+      ],
+      "exit_code": 0,
+      "version_changes": [
+        {
+          "name": "forge-msgs",
+          "before": "2.0.0",
+          "after": "2.1.0"
+        },
+        {
+          "name": "pillow",
+          "before": "12.3.0",
+          "after": "13.0.0"
+        }
+      ]
+    }
+  ],
+  "lock_checks": [
+    {
+      "repo": "adapter-franka-fr3",
+      "lock": "uv.lock",
+      "check_exit": 0
+    }
+  ],
+  "software_tests": {
+    "repo": "adapter-franka-fr3",
+    "environment": "${WORKSPACE}/adapter-franka-fr3/.venv/bin/python",
+    "commands": [
+      [
+        "${WORKSPACE}/.tools/bin/uv",
+        "pip",
+        "install",
+        "--python",
+        "${WORKSPACE}/adapter-franka-fr3/.venv/bin/python",
+        "--no-deps",
+        "--index-url",
+        "https://pypi.org/simple",
+        "forge-msgs==2.1.0",
+        "pillow==13.0.0"
+      ],
+      [
+        "${WORKSPACE}/adapter-franka-fr3/.venv/bin/python",
+        "-c",
+        "from importlib.metadata import version; import json; print(json.dumps({n:version(n) for n in ['forge-msgs','pillow','dora-rs']}))"
+      ],
+      [
+        "${WORKSPACE}/.tools/bin/uv",
+        "pip",
+        "check",
+        "--python",
+        "${WORKSPACE}/adapter-franka-fr3/.venv/bin/python"
+      ],
+      [
+        "${WORKSPACE}/adapter-franka-fr3/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--import-mode=importlib"
+      ]
+    ],
+    "scope": "Existing local test environment with exact public Msgs/Pillow update; platform SDK exclusions are reported, not production acceptance.",
+    "update_exit": 0,
+    "versions_exit": 0,
+    "dependency_check_exit": 1,
+    "tests_exit": 1,
+    "test_summary": [
+      "E               ",
+      "E               + (-0.05, 0.05)",
+      "E               ?     ^^    ^^",
+      "",
+      "tests/test_paos_move_arm_by_ee.py:72: AssertionError",
+      "=========================== short test summary info ============================",
+      "FAILED tests/test_paos_move_arm_by_ee.py::PaosMoveArmByEeTest::test_gateway_is_state_gated_and_commissioning_bounded",
+      "1 failed, 91 passed, 8 subtests passed in 7.57s"
+    ],
+    "installed_versions": {
+      "forge-msgs": "2.1.0",
+      "pillow": "13.0.0",
+      "dora-rs": "1.0.1"
+    }
+  },
+  "dependency_audit": {
+    "repo": "adapter-franka-fr3",
+    "audit_exit": 0,
+    "findings": [],
+    "skipped": [
+      {
+        "name": "franky-control",
+        "skip_reason": "Dependency not found on PyPI and could not be audited: franky-control (2.0.0+libfranka.0.17.0)"
+      }
+    ]
+  },
+  "dora_run_records": [
+    {
+      "repo": "adapter-franka-fr3",
+      "entry": "franka-fake",
+      "command": [
+        "${WORKSPACE}/.test-env/bin/dora",
+        "run",
+        "${WORKSPACE}/validation/downstream-msgs210-20261112/runtime/franka-fake/chain/dataflow.yaml",
+        "--stop-after",
+        "10s"
+      ],
+      "includes_gateway": true,
+      "passed": true,
+      "scope": "Production node with simulated state/actuator; Gateway receives state and commands. No hardware.",
+      "state": {
+        "running_time": 0.661,
+        "current_frame_count": 4,
+        "sensors": {
+          "joints": {
+            "fr3v2_joint1": 0.0,
+            "fr3v2_joint2": -0.7853981633974483,
+            "fr3v2_joint3": 0.0,
+            "fr3v2_joint4": -2.356194490192345,
+            "fr3v2_joint5": 0.0,
+            "fr3v2_joint6": 1.5707963267948966,
+            "fr3v2_joint7": 0.7853981633974483,
+            "gripper": 0.08
+          },
+          "command": {}
+        },
+        "runtime": {
+          "phase": "running",
+          "sim_status": {
+            "status_name": "UNINITIALIZED",
+            "status_code": 0
+          },
+          "record_status": {
+            "record_state": "IDLE",
+            "episode_count": 0,
+            "current_frame_count": 0
+          },
+          "playback_status": {
+            "playback_state": "IDLE",
+            "current_time_ns": 0,
+            "total_messages": 0,
+            "mcap_path": null,
+            "error": null
+          },
+          "readiness": {
+            "ready": true,
+            "missing": [],
+            "runtime_phase": "running",
+            "proprio_state_ready": true,
+            "required_images_ready": true,
+            "images": {},
+            "state_clients": 1,
+            "image_clients": 0,
+            "state_client_ready": true,
+            "image_client_ready": false
+          },
+          "last_error": null
+        }
+      },
+      "exit_code": 0,
+      "mode": "chain",
+      "source_report": "runtime/franka-fake/chain/report.json",
+      "runtime_errors": [],
+      "local_evidence": "Full original Dora log is retained under validation/downstream-msgs210-20261112/runtime/franka-fake/chain/dora.log"
+    },
+    {
+      "repo": "adapter-franka-fr3",
+      "entry": "franka-fake",
+      "mode": "single",
+      "command": [
+        "${WORKSPACE}/.test-env/bin/dora",
+        "run",
+        "${WORKSPACE}/validation/downstream-msgs210-20261112/runtime/franka-fake/single/dataflow.yaml",
+        "--stop-after",
+        "6s"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 6.109,
+      "passed": true,
+      "error": null,
+      "scope": "Startup, timer processing and normal Dora stop only; no hardware or action execution.",
+      "source_report": "runtime/franka-fake/single/report.json",
+      "runtime_errors": [],
+      "local_evidence": "Full original Dora log is retained under validation/downstream-msgs210-20261112/runtime/franka-fake/single/dora.log"
+    }
+  ],
+  "remaining": "Known preexisting Skill bounds test failure: expected +/-0.05, checked-in config +/-0.1; Franky SDK absent locally. Motion limits unchanged.",
+  "acceptance": "Pending; software checks, fake/dummy backends and negative prerequisite records are scoped evidence only. Every new multi-node graph contains adapter-forge-gateway.",
+  "gitlab_sync": "Not performed; follows completed acceptance.",
+  "log_publication": "Original logs remain in the local validation workspace. This public report publishes reviewed commands, outcomes, assertions and limitations only."
+}

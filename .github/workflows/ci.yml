@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install uv
-        run: python -m pip install uv==0.12.5
+        run: python -m pip install uv==0.13.7
       - name: Sync locked environment
         run: uv sync --frozen --all-groups
       - name: Validate package build
@@ -27,8 +27,9 @@ jobs:
       - name: Verify CLI
         run: |
           uv run robots-franka-fr3 --help
-          test "$(uv run robots-franka-fr3 --version)" = "robots_franka_fr3 0.1.1"
-          test "$(uv run python -m robots_franka_fr3 --version)" = "robots_franka_fr3 0.1.1"
+          expected="robots_franka_fr3 $(python -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')"
+          test "$(uv run robots-franka-fr3 --version)" = "$expected"
+          test "$(uv run python -m robots_franka_fr3 --version)" = "$expected"
           uv run python src/robots_franka_fr3/node.py --help
       - name: Import public Forge packages
         run: uv run python -c "import forge_common, forge_msgs, forge_robot, robots_franka_fr3"
@@ -55,7 +56,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install uv
-        run: python -m pip install uv==0.12.5
+        run: python -m pip install uv==0.13.7
       - name: Export and audit locked runtime dependencies
         run: |
           uv export --frozen --format requirements-txt --no-dev --no-emit-project --output-file /tmp/requirements.txt
@@ -75,7 +76,7 @@ jobs:
               filtered.append(line)
           pathlib.Path("/tmp/requirements.txt").write_text("\n".join(filtered) + "\n")
           PY
-          uvx pip-audit --requirement /tmp/requirements.txt
+          uvx --python 3.12 pip-audit --requirement /tmp/requirements.txt
 
   secrets:
     runs-on: ubuntu-latest
