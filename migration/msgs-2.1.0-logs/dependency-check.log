@@ -1,3 +1,0 @@
-Checked 33 packages in 0.39ms
-Found 1 incompatibility
-The package `franka-fr3` requires `franky-control==2.0.0+libfranka.0.17.0`, but it's not installed
