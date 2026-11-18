@@ -1,0 +1,76 @@
+{
+  "repository": "PhyAgentOS/adapter-franka-fr3",
+  "target": "main",
+  "scope": "Build and document Forge 1.x and 2.x releases",
+  "release_line_unit_tests": {
+    "command": "python -m unittest discover -s scripts -p test_release_line.py -v",
+    "passed": 12
+  },
+  "workflow_validation": {
+    "tool": "actionlint 1.7.12",
+    "result": "passed"
+  },
+  "distribution_checks": {
+    "result": "passed",
+    "artifacts": [
+      {
+        "name": "franka_fr3-0.1.2-py3-none-any.whl",
+        "size": 39885,
+        "sha256": "e54c4aeaee10c31dd6c476f2d9b4aa8db9649e31d5edadd24a8f36fe02951c04"
+      },
+      {
+        "name": "franka_fr3-0.1.2.tar.gz",
+        "size": 33577,
+        "sha256": "1769f0a1199c4cffa9b6d849e4bfadb1d93754cd7d11568dcc61d2514fed0765"
+      }
+    ]
+  },
+  "source_profiles": [
+    {
+      "repo": "PhyAgentOS/adapter-franka-fr3",
+      "line": "1.x",
+      "version": "1.0.0",
+      "forge_majors": [
+        1
+      ],
+      "dora_versions": [
+        [
+          0,
+          4
+        ]
+      ],
+      "kind": "python",
+      "ready": true
+    },
+    {
+      "repo": "PhyAgentOS/adapter-franka-fr3",
+      "line": "2.x",
+      "version": "0.1.2",
+      "forge_majors": [
+        1
+      ],
+      "dora_versions": [
+        [
+          0,
+          4
+        ]
+      ],
+      "kind": "python",
+      "ready": false
+    }
+  ],
+  "dora_run": {
+    "single_node": {
+      "status": "not-run",
+      "reason": "This change verifies release tooling and version metadata; no current node runtime acceptance is claimed."
+    },
+    "gateway_chain": {
+      "status": "not-run",
+      "reason": "Fresh integration acceptance remains required; every such chain must include adapter-forge-gateway from the same Forge line."
+    }
+  },
+  "linux_binary_release_build": "not-run in this change; existing binary workflow checks are preserved",
+  "hardware_model_sustained_rollback_acceptance": "pending",
+  "published_tags_releases_modified": false,
+  "gitlab_sync": false
+}
