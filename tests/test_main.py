@@ -3,8 +3,10 @@ from __future__ import annotations
 import contextlib
 import io
 import json
+import tomllib
 import unittest
 from unittest.mock import patch
+from pathlib import Path
 
 from typer.testing import CliRunner
 
@@ -38,7 +40,9 @@ class TyperWiringTest(unittest.TestCase):
     def test_version_flag(self) -> None:
         result = runner.invoke(app, ["--version"])
         self.assertEqual(result.exit_code, 0)
-        self.assertIn("robots_franka_fr3 0.1.1", result.output)
+        manifest = Path(__file__).resolve().parents[1] / "pyproject.toml"
+        expected = tomllib.loads(manifest.read_text())["project"]["version"]
+        self.assertIn(f"robots_franka_fr3 {expected}", result.output)
 
     def test_read_state_end_to_end_via_typer(self) -> None:
         result = runner.invoke(app, ["read-state", "--samples", "1", "--period", "0"])

@@ -71,5 +71,9 @@
   "linux_binary_release_build": "not-run in this change; existing binary workflow checks are preserved",
   "hardware_model_sustained_rollback_acceptance": "pending",
   "published_tags_releases_modified": false,
-  "gitlab_sync": false
+  "gitlab_sync": false,
+  "cli_version_test": {
+    "passed": 1,
+    "check": "Typer --version agrees with pyproject.toml, without constructing or connecting a hardware backend"
+  }
 }
