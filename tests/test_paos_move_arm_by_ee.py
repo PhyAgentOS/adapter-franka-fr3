@@ -69,7 +69,7 @@ class PaosMoveArmByEeTest(unittest.TestCase):
             resolve = specs["motion.resolve_relative_pose"]["input_schema"]["properties"]
             for axis in "xyz":
                 bounds = resolve["translation_m"]["properties"][axis]
-                self.assertEqual((bounds["minimum"], bounds["maximum"]), (-0.05, 0.05))
+                self.assertEqual((bounds["minimum"], bounds["maximum"]), (-0.1, 0.1))
             move = specs["motion.move_pose"]["input_schema"]["properties"]
             self.assertEqual(move["velocity_scale"]["maximum"], 0.1)
             self.assertEqual(move["acceleration_scale"]["maximum"], 0.1)
