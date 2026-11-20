@@ -3,11 +3,12 @@ from __future__ import annotations
 import contextlib
 import io
 import json
+import tomllib
 import unittest
 from unittest.mock import patch
+from pathlib import Path
 
 from typer.testing import CliRunner
-from robots_franka_fr3 import __version__
 
 from robots_franka_fr3.backend import FakeBackend
 from robots_franka_fr3.contract import ACTUATOR_ORDER
@@ -39,7 +40,9 @@ class TyperWiringTest(unittest.TestCase):
     def test_version_flag(self) -> None:
         result = runner.invoke(app, ["--version"])
         self.assertEqual(result.exit_code, 0)
-        self.assertIn(f"robots_franka_fr3 {__version__}", result.output)
+        manifest = Path(__file__).resolve().parents[1] / "pyproject.toml"
+        expected = tomllib.loads(manifest.read_text())["project"]["version"]
+        self.assertIn(f"robots_franka_fr3 {expected}", result.output)
 
     def test_read_state_end_to_end_via_typer(self) -> None:
         result = runner.invoke(app, ["read-state", "--samples", "1", "--period", "0"])
