@@ -1,6 +1,6 @@
 [project]
 name = "franka-fr3"
-version = "0.1.2"
+version = "1.0.0"
 description = "Franka FR3v2 with Franka Hand assets and Forge robot adapter"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
@@ -10,7 +10,7 @@ authors = [{ name = "PhyAgentOS Contributors" }]
 dependencies = [
   "dora-rs>=0.4.1",
   "forge-common>=1.0.0,<2",
-  "forge-msgs>=1.0.0,<2",
+  "forge-msgs>=1.3.1,<2",
   "forge-robot>=1.0.0,<2",
   "franky-control==2.0.0+libfranka.0.17.0",
   "pyyaml>=6.0",
