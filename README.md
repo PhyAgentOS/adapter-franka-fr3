@@ -1,3 +1,5 @@
+[简体中文](README_zh.md)
+
 # Franka FR3v2 + 原生 Franka Hand
 
 本目录接入 **Franka FR3v2 七轴机械臂 + white Franka Hand**。已完成资产归档、
@@ -174,3 +176,7 @@ PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 uv run pytest -q \
 [NOTICE](NOTICE)），运行时依赖 `franky-control` 为 MIT；完整归属见
 [NOTICE](NOTICE) 和 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
 Apache-2.0 不授予 Franka 商标的使用权。
+
+## CI policy
+
+Automated dependency vulnerability audits are not maintained as CI or merge gates on this branch. Existing tests, builds, and other checks remain in place. Removing the audit gate does not change locked dependencies or resolve previously reported vulnerabilities.
